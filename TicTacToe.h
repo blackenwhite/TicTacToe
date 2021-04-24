@@ -105,7 +105,7 @@ public:
 private:
 	int lastmove=-1;
 	Cell Board[3][3];
-	int currentPlayer=-2;
+	//int currentPlayer=-2;
 	Player players[2];
 	vector<int>moves;
 };
@@ -157,6 +157,38 @@ string TicTacToe::next_turn_query(){
 	int current=1-lastmove;
 	return players[current].getName();
 }
+
+
+int TicTacToe::place_x(int pl,int i,int j){
+	if(pl!=1 || pl!=2){
+		cout<<"invalid input"<<endl;
+		return 0;
+	}
+
+	if(i<0 || i>2 || j<0 || j>2){
+		cout<<"invalid input"<<e
+		return 0;
+	}
+
+	if(pl==lastmove){
+		cout<<"invalid input"<<e
+		return 0;
+	}
+
+	if(Board[i][j].getMark()!=-2){
+		cout<<"invalid input"<<e
+		return 0;
+	}
+
+	
+
+
+}
+
+
+
+
+
 
 
 
