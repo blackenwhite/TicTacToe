@@ -111,6 +111,7 @@ private:
 	//int currentPlayer=-2;
 	Player players[2];
 	vector<int>moves;
+	bool gameover=false;
 };
 
 // default constructor
@@ -147,6 +148,7 @@ void TicTacToe::reset(){
 
 	moves.clear();
 	lastmove=-1;
+	gameover=false;
 	//viewBoard(); testing statement
 
 } 
@@ -222,10 +224,10 @@ string TicTacToe::checkforWinner(){
 		win_o=true;
 	}
 
-	if(win_x && win_o){
+	/*if(win_x && win_o){
 		cout<<"Garbar hai"<<endl;
 		return "Nonsense";
-	}
+	}*/
 
 	if(win_x){
 		return "win";
@@ -242,8 +244,12 @@ string TicTacToe::checkforWinner(){
 
 
 int TicTacToe::place_x(int pl,int i,int j){
+
+	if(gameover){
+		return 2;
+	}
 	// check for invalid conditions
-	if(pl!=1 || pl!=2){
+	if(!(pl==1 || pl==2)){
 		cout<<"invalid input"<<endl;
 		return 0;
 	}
@@ -253,7 +259,7 @@ int TicTacToe::place_x(int pl,int i,int j){
 		return 0;
 	}
 
-	if(pl==lastmove){
+	if((pl-1)==lastmove){
 		cout<<"invalid input"<<endl;
 		return 0;
 	}
@@ -271,20 +277,22 @@ int TicTacToe::place_x(int pl,int i,int j){
 
 	// ask if there is a winner or it is a tie
 	string ch=checkforWinner();
-	if(ch=="Garbar"){
-		return 0;
-	}
+	// if(ch=="Garbar"){
+	// 	return 0;
+	// }
 
 	if(ch=="win"){
 		string winner=players[pl].getName();
 		cout<<"game over! "<<winner<<" wins!";
 		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		gameover=true;
 		return 2;
 	}
 
-	if(moves.size()==9){
+	if(moves.size()>=9){
 		// then it is a tie
 		cout<<"game over! It is a tie!"<<endl;
+		gameover=true;
 		return 2;
 	}
 
@@ -297,8 +305,14 @@ int TicTacToe::place_x(int pl,int i,int j){
 
 
 int TicTacToe::place_o(int pl,int i,int j){
+
+	if(gameover){
+		return 2;
+	}
+
+
 	// check for invalid conditions
-	if(pl!=1 || pl!=2){
+	if(pl!=1 && pl!=2){
 		cout<<"invalid input"<<endl;
 		return 0;
 	}
@@ -308,7 +322,7 @@ int TicTacToe::place_o(int pl,int i,int j){
 		return 0;
 	}
 
-	if(pl==lastmove){
+	if((pl-1)==lastmove){
 		cout<<"invalid input"<<endl;
 		return 0;
 	}
@@ -326,37 +340,26 @@ int TicTacToe::place_o(int pl,int i,int j){
 
 	// ask if there is a winner or it is a tie
 	string ch=checkforWinner();
-	if(ch=="Garbar"){
-		return 0;
-	}
+	// if(ch=="Garbar"){
+	// 	return 0;
+	// }
 
 	if(ch=="win"){
 		string winner=players[pl].getName();
 		cout<<"game over! "<<winner<<" wins!";
 		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		gameover=true;
 		return 2;
 	}
 
 	if(moves.size()==9){
 		// then it is a tie
 		cout<<"game over! It is a tie!"<<endl;
+		gameover=true;
 		return 2;
 	}
 
 	return 1;
-
-	
-
-
 }
-
-
-
-
-
-
-
-
-
 
 
