@@ -60,21 +60,7 @@ Player::Player( string fname) {
 		setName( fname );
 }
 
-	// void Player::inputPlayerInfo() {
-		
-	// string fname;
-	// string lname; 
-	// static int personCounter = 1;
-
-	// cout << "Player " << personCounter << ":  Enter your first name: " << endl;
-	//     cin >> fname;
-	//     setFirstName( fname );
-	//     cout << "Enter your last name: " << endl;
-	//     cin >> lname;
-	//     setLastName( lname );	
-	// personCounter++;	
-	// }	
-
+	
 	void Player::setName( string fname ) {
 		Name = fname;
 	}
