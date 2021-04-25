@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 class Cell {
@@ -100,6 +102,7 @@ public:
 	int place_o(int,int,int);
 
 	void viewBoard();
+	string checkforWinner();
 
 
 private:
@@ -158,32 +161,196 @@ string TicTacToe::next_turn_query(){
 	return players[current].getName();
 }
 
+string TicTacToe::checkforWinner(){
+	bool win_x=false,win_o=false;
+	int mark=1;
+	// first check for x
+
+	// check for rows
+	for(int i=0;i<3;i++){
+		if(Board[i][0].getMark()==mark && Board[i][1].getMark()==mark && Board[i][2].getMark()==mark ){
+			win_x=true;
+			break;
+		}
+	}
+
+	// check the columns
+	for(int j=0;j<3;j++){
+		if(Board[0][j].getMark()==mark && Board[1][j].getMark()==mark && Board[2][j].getMark()==mark ){
+			win_x=true;
+			break;
+		}
+	}
+
+
+	// check the main diagonal
+	if(Board[0][0].getMark()==mark && Board[1][1].getMark()==mark && Board[2][2].getMark()==mark ){
+		win_x=true;
+	}
+
+	// check the transverse diagonal
+	if(Board[0][2].getMark()==mark && Board[1][1].getMark()==mark && Board[2][0].getMark()==mark ){
+		win_x=true;
+	}
+
+	// Now check for O
+	mark=0;
+	// check for rows
+	for(int i=0;i<3;i++){
+		if(Board[i][0].getMark()==mark && Board[i][1].getMark()==mark && Board[i][2].getMark()==mark ){
+			win_o=true;
+			break;
+		}
+	}
+
+	// check the columns
+	for(int j=0;j<3;j++){
+		if(Board[0][j].getMark()==mark && Board[1][j].getMark()==mark && Board[2][j].getMark()==mark ){
+			win_o=true;
+			break;
+		}
+	}
+
+
+	// check the main diagonal
+	if(Board[0][0].getMark()==mark && Board[1][1].getMark()==mark && Board[2][2].getMark()==mark ){
+		win_o=true;
+	}
+
+	// check the transverse diagonal
+	if(Board[0][2].getMark()==mark && Board[1][1].getMark()==mark && Board[2][0].getMark()==mark ){
+		win_o=true;
+	}
+
+	if(win_x && win_o){
+		cout<<"Garbar hai"<<endl;
+		return "Nonsense";
+	}
+
+	if(win_x){
+		return "win";
+	}
+
+	if(win_o){
+		return "win";
+	}
+
+	return "nothing";
+
+
+}
+
 
 int TicTacToe::place_x(int pl,int i,int j){
+	// check for invalid conditions
 	if(pl!=1 || pl!=2){
 		cout<<"invalid input"<<endl;
 		return 0;
 	}
 
 	if(i<0 || i>2 || j<0 || j>2){
-		cout<<"invalid input"<<e
+		cout<<"invalid input"<<endl;
 		return 0;
 	}
 
 	if(pl==lastmove){
-		cout<<"invalid input"<<e
+		cout<<"invalid input"<<endl;
 		return 0;
 	}
 
 	if(Board[i][j].getMark()!=-2){
-		cout<<"invalid input"<<e
+		cout<<"invalid input"<<endl;
 		return 0;
 	}
+
+	// make the move
+	Board[i][j].setMark(1);
+	pl--;
+	moves.push_back(pl);
+	lastmove=pl;
+
+	// ask if there is a winner or it is a tie
+	string ch=checkforWinner();
+	if(ch=="Garbar"){
+		return 0;
+	}
+
+	if(ch=="win"){
+		string winner=players[pl].getName();
+		cout<<"game over! "<<winner<<" wins!";
+		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		return 2;
+	}
+
+	if(moves.size()==9){
+		// then it is a tie
+		cout<<"game over! It is a tie!"<<endl;
+		return 2;
+	}
+
+	return 1;
 
 	
 
 
 }
+
+
+int TicTacToe::place_o(int pl,int i,int j){
+	// check for invalid conditions
+	if(pl!=1 || pl!=2){
+		cout<<"invalid input"<<endl;
+		return 0;
+	}
+
+	if(i<0 || i>2 || j<0 || j>2){
+		cout<<"invalid input"<<endl;
+		return 0;
+	}
+
+	if(pl==lastmove){
+		cout<<"invalid input"<<endl;
+		return 0;
+	}
+
+	if(Board[i][j].getMark()!=-2){
+		cout<<"invalid input"<<endl;
+		return 0;
+	}
+
+	// make the move
+	Board[i][j].setMark(0);
+	pl--;
+	moves.push_back(pl);
+	lastmove=pl;
+
+	// ask if there is a winner or it is a tie
+	string ch=checkforWinner();
+	if(ch=="Garbar"){
+		return 0;
+	}
+
+	if(ch=="win"){
+		string winner=players[pl].getName();
+		cout<<"game over! "<<winner<<" wins!";
+		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		return 2;
+	}
+
+	if(moves.size()==9){
+		// then it is a tie
+		cout<<"game over! It is a tie!"<<endl;
+		return 2;
+	}
+
+	return 1;
+
+	
+
+
+}
+
+
 
 
 
