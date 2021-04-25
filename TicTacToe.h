@@ -112,6 +112,7 @@ private:
 	Player players[2];
 	vector<int>moves;
 	bool gameover=false;
+	string statement=" ";
 };
 
 // default constructor
@@ -149,6 +150,7 @@ void TicTacToe::reset(){
 	moves.clear();
 	lastmove=-1;
 	gameover=false;
+	statement=" ";
 	//viewBoard(); testing statement
 
 } 
@@ -246,6 +248,7 @@ string TicTacToe::checkforWinner(){
 int TicTacToe::place_x(int pl,int i,int j){
 
 	if(gameover){
+		cout<<statement<<endl;
 		return 2;
 	}
 	// check for invalid conditions
@@ -283,8 +286,9 @@ int TicTacToe::place_x(int pl,int i,int j){
 
 	if(ch=="win"){
 		string winner=players[pl].getName();
-		cout<<"game over! "<<winner<<" wins!";
-		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		cout<<"game over! "<<winner<<" wins!"<<endl;
+		statement="game over! "+winner+" wins!";
+		//cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
 		gameover=true;
 		return 2;
 	}
@@ -292,6 +296,7 @@ int TicTacToe::place_x(int pl,int i,int j){
 	if(moves.size()>=9){
 		// then it is a tie
 		cout<<"game over! It is a tie!"<<endl;
+		statement="game over! It is a tie!";
 		gameover=true;
 		return 2;
 	}
@@ -307,6 +312,7 @@ int TicTacToe::place_x(int pl,int i,int j){
 int TicTacToe::place_o(int pl,int i,int j){
 
 	if(gameover){
+		cout<<statement<<endl;
 		return 2;
 	}
 
@@ -346,8 +352,9 @@ int TicTacToe::place_o(int pl,int i,int j){
 
 	if(ch=="win"){
 		string winner=players[pl].getName();
-		cout<<"game over! "<<winner<<" wins!";
-		cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
+		cout<<"game over! "<<winner<<" wins!"<<endl;
+		statement="game over! "+winner+" wins!";
+		//cout<<"("<<winner<<" made the most recent move that led to a winning condition)"<<endl;
 		gameover=true;
 		return 2;
 	}
@@ -355,6 +362,7 @@ int TicTacToe::place_o(int pl,int i,int j){
 	if(moves.size()==9){
 		// then it is a tie
 		cout<<"game over! It is a tie!"<<endl;
+		statement="game over! It is a tie!";
 		gameover=true;
 		return 2;
 	}
